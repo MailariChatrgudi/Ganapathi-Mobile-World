@@ -32,6 +32,25 @@ export default function Navbar() {
 
   useEffect(() => { setMenuOpen(false) }, [location.pathname])
 
+  // Smooth scroll to section for hash links
+  const handleNavClick = (e, href) => {
+    if (!href.startsWith('/#')) return // normal links handle themselves
+    e.preventDefault()
+    const sectionId = href.replace('/#', '')
+    const scrollToSection = () => {
+      const el = document.getElementById(sectionId)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+    if (location.pathname === '/') {
+      scrollToSection()
+    } else {
+      navigate('/')
+      // Wait for navigation + render, then scroll
+      setTimeout(scrollToSection, 400)
+    }
+    setMenuOpen(false)
+  }
+
   return (
     <motion.nav
       initial={{ y: -80 }}
@@ -55,15 +74,16 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map(link => (
-              <Link
+              <a
                 key={link.label}
-                to={link.href}
-                className={`nav-link px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 text-sm ${
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`nav-link px-4 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 text-sm cursor-pointer ${
                   location.pathname === link.href ? 'text-brand-sky dark:text-brand-sky' : ''
                 }`}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </div>
 
@@ -150,9 +170,14 @@ export default function Navbar() {
           >
             <div className="px-4 py-3 space-y-1">
               {NAV_LINKS.map(link => (
-                <Link key={link.label} to={link.href} className="block px-4 py-3 rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-white/80 hover:text-slate-900 dark:hover:text-white transition-colors">
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="block px-4 py-3 rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-white/80 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+                >
                   {link.label}
-                </Link>
+                </a>
               ))}
               <a href="tel:06363333807" className="flex items-center gap-2 px-4 py-3 text-brand-gold font-semibold">
                 <Phone size={16} /> 063633 33807
