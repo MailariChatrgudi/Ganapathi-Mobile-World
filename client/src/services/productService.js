@@ -1,4 +1,3 @@
-import api from './api'
 import { mockProducts } from '../data/mockProducts'
 
 // Helper: apply filters to mock data (mirrors backend logic)
@@ -25,35 +24,17 @@ const applyFilters = (products, params = {}) => {
 
 export const productService = {
   getProducts: async (params = {}) => {
-    try {
-      const { data } = await api.get('/products', { params })
-      return data
-    } catch {
-      console.warn('⚠️ Backend offline — using mock products')
-      const products = applyFilters(mockProducts, params)
-      return { products, total: products.length }
-    }
+    const products = applyFilters(mockProducts, params)
+    return { products, total: products.length }
   },
 
   getProduct: async (id) => {
-    try {
-      const { data } = await api.get(`/products/${id}`)
-      return data
-    } catch {
-      console.warn('⚠️ Backend offline — using mock product')
-      const product = mockProducts.find(p => p._id === id) || mockProducts[0]
-      return { product }
-    }
+    const product = mockProducts.find(p => p._id === id) || mockProducts[0]
+    return { product }
   },
 
   filterProducts: async (filters) => {
-    try {
-      const { data } = await api.get('/products/filter', { params: filters })
-      return data
-    } catch {
-      console.warn('⚠️ Backend offline — using filtered mock products')
-      const products = applyFilters(mockProducts, filters)
-      return { products, total: products.length }
-    }
+    const products = applyFilters(mockProducts, filters)
+    return { products, total: products.length }
   }
 }
