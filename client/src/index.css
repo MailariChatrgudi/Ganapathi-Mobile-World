@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0d0d1a; }
+  ::-webkit-scrollbar-thumb { background: #e63946; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #c1121f; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-red-gradient text-white font-semibold px-6 py-3 rounded-xl
+           hover:shadow-glow-red hover:scale-105 transition-all duration-300
+           active:scale-95 cursor-pointer border-none outline-none;
+  }
+  .btn-secondary {
+    @apply bg-transparent font-semibold px-6 py-3 rounded-xl
+           border transition-all duration-300 cursor-pointer
+           text-slate-800 dark:text-white
+           border-slate-400 dark:border-white/20
+           hover:border-brand-sky hover:text-brand-sky
+           hover:shadow-glow-sky;
+  }
+  .btn-sky {
+    @apply bg-sky-gradient text-white font-semibold px-6 py-3 rounded-xl
+           hover:shadow-glow-sky hover:scale-105 transition-all duration-300
+           active:scale-95 cursor-pointer;
+  }
+  .card {
+    @apply bg-white dark:bg-dark-700 rounded-2xl border border-slate-200 dark:border-white/5
+           shadow-sm hover:shadow-card hover:dark:-translate-y-1 hover:-translate-y-1
+           transition-all duration-300;
+  }
+  .badge-hot {
+    @apply bg-red-gradient text-white text-xs font-bold px-2 py-1 rounded-lg;
+  }
+  .badge-limited {
+    @apply bg-gold-gradient text-dark-900 text-xs font-bold px-2 py-1 rounded-lg;
+  }
+  .badge-discount {
+    @apply bg-brand-red text-white text-xs font-bold px-2 py-1 rounded-lg;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-display font-bold text-slate-900 dark:text-white;
+  }
+  .section-subtitle {
+    @apply text-slate-500 dark:text-white/60 text-lg mt-2;
+  }
+  .input-field {
+    @apply w-full bg-slate-100 dark:bg-dark-700 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3
+           text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/40 focus:outline-none focus:border-brand-sky
+           focus:ring-1 focus:ring-brand-sky/50 transition-all duration-300;
+  }
+  .glass {
+    @apply bg-white/70 dark:bg-dark-800/90 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-sm dark:shadow-none;
+  }
+  .price-tag {
+    @apply text-2xl font-bold text-brand-gold;
+  }
+  .price-original {
+    @apply text-slate-400 dark:text-white/40 line-through text-sm;
+  }
+  .nav-link {
+    @apply text-slate-700 dark:text-white/70 hover:text-brand-sky-dark dark:hover:text-brand-sky
+           font-medium transition-colors duration-200 relative;
+  }
+}
+
+@layer utilities {
+  .text-gradient-red {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #e63946, #ff6b6b);
+  }
+  .text-gradient-sky {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #00b4d8, #48cae4);
+  }
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #ffd60a, #f4a261);
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
